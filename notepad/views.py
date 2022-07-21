@@ -3,7 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.mixins import UpdateModelMixin, DestroyModelMixin
 
-from .models import Notepads
+from .models import Notepad
 from .serializers import NotepadsSerializer
 
 
@@ -18,8 +18,8 @@ class NotepadView(
             # If an id is provided in the GET request, retrieve the Notepad item by that id
             try:
                 # Check if the notepad item the user wants to get exists
-                queryset = Notepads.objects.get(id=id)
-            except Notepads.DoesNotExist:
+                queryset = Notepad.objects.get(id=id)
+            except Notepad.DoesNotExist:
                 # If the notepad item does not exist, return an error response
                 return Response({'errors': 'This notepad item does not exist.'}, status=400)
 
@@ -28,7 +28,7 @@ class NotepadView(
 
         else:
             # Get all notepad items from the database using Django's model ORM
-            queryset = Notepads.objects.all()
+            queryset = Notepad.objects.all()
 
             # Serialize list of notepads item from Django queryset object to JSON formatted data
             read_serializer = NotepadsSerializer(queryset, many=True)
@@ -57,8 +57,8 @@ class NotepadView(
     def put(self, request, id=None):
         try:
             # Check if the todo item the user wants to update exists
-            notepad_item = Notepads.objects.get(id=id)
-        except Notepads.DoesNotExist:
+            notepad_item = Notepad.objects.get(id=id)
+        except Notepad.DoesNotExist:
             # If the notepad item does not exist, return an error response
             return Response({'errors': 'This notepad item does not exist.'}, status=400)
 
@@ -82,8 +82,8 @@ class NotepadView(
     def delete(self, request, id=None):
         try:
             # Check if the notepad item the user wants to delete exists
-            notepad_item = Notepads.objects.get(id=id)
-        except Notepads.DoesNotExist:
+            notepad_item = Notepad.objects.get(id=id)
+        except Notepad.DoesNotExist:
             # If the notepad item does not exist, return an error response
             return Response({'errors': 'This notepad item does not exist.'}, status=400)
 

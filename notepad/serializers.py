@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Notepads
+from .models import Notepad
 
 
 class NotepadsSerializer(serializers.ModelSerializer):
@@ -9,7 +9,7 @@ class NotepadsSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         # Once the request data has been validated, we can create a title and notes items instance in the database
-        return Notepads.objects.create(
+        return Notepad.objects.create(
             title=validated_data.get('title'),
             text=validated_data.get('text')
         )
@@ -22,7 +22,7 @@ class NotepadsSerializer(serializers.ModelSerializer):
         return instance
 
     class Meta:
-        model = Notepads
+        model = Notepad
         fields = (
             'id',
             'title',
